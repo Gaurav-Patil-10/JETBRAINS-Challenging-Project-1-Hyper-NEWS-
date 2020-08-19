@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+
+<body>
+    <h2>Hyper news</h2>
+    {% regroup news_json|dictsortreversed:"created" by created|slice:11 as news_list %}
+    {% for newsday in news_list %}
+    <h4>{{ newsday.grouper }}</h4>
+    <ul>
+        {% for news in newsday.list %}
+        <li><a href="/news/{{ news.link }}/">{{ news.title }}</a></li>
+        {% endfor %}
+    </ul>
+    {% endfor %}
+    <h2>Search</h2>
+    <form action="/news/" name='Search' method="GET">
+        <input type="text" name='q'>
+        <button action="/news/">Submit</button>
+    </form>
+    <!-- {% for x in news %}
+    {% for y in links %}
+    {% if y in x.values %}
+    <h4>{{ x.created }}</h4>
+    <li><a href="/news/{{ y }}/">{{ x.title }}</a></li>
+    <h2>{{ x.text }}</h2>
+    {% endif %}
+    {% endfor %}
+    {% endfor %} -->
+    <a href="/news/create/">Create News</a>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+
+<body>
+    <h2>Hyper news</h2>
+    <h2>Search</h2>
+    <form action="/news/" name='Search' method="GET">
+        <input type="text" name='q'>
+        <button action="/news/">Submit</button>
+    </form>
+    {% for x in news %}
+    {% for y in links %}
+    {% if y in x.values %}
+    <li><a href="/news/{{ y }}/">{{ x.title }}</a></li>
+    {% endif %}
+
+    {% endfor %}
+    {% endfor %}
+    <a href="/news/create/">Create News</a>
+</body>
+
+</html>
